@@ -36,6 +36,8 @@ public partial class Main : Node
 
         foreach (Type type in types)
         {
+            // BindingFlags.Instance must be added or the methods will not
+            // be seen. Not sure why static methods can't be added.
             MethodInfo[] methods = type.GetMethods(
                 BindingFlags.Instance |
                 BindingFlags.Public |
@@ -90,6 +92,8 @@ public partial class Main : Node
         
         MethodInfo method = cmd.Method;
 
+        // Not sure why this has to be the "DeclaringType" as suppose to
+        // any of the other Type properties or methods
         object instance = GetMethodInstance(cmd.Method.DeclaringType);
 
         // Valk: Not really sure what this regex is doing. May rewrite
